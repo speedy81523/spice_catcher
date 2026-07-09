@@ -63,10 +63,18 @@ h1 {
   color: white;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(255, 95, 91, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  
 }
 
 .start-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 95, 91, 0.4);
+}
+
+.start-btn:active{
+  transform: translateY(2px);
+  box-shadow: 0 4px 12px rgba(255, 95, 91, 0.4);
 }
 
 .game-shell {
