@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>Spice Catcher</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <title>Spice Catcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>hello there</p>
+  <main class="app">
+    <header class="top-bar">
+      <div>
+        <p class="eyebrow">Arcade Challenge</p>
+        <h1>Spice Catcher</h1>
+      </div>
+      <button class="start-btn" id="start-btn">Start Game</button>
+    </header>
+
+    <section class="game-shell">
+      <div class="game-panel">
+        <div class="hud">
+          <div class="stat">
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Lives</span>
+            <strong id="lives">3</strong>
+          </div>
+          <div class="stat">
+            <span class="label">Time</span>
+            <strong id="timer">60s</strong>
+          </div>
+        </div>
+
+        <div class="game-area" id="game-area">
+          <div class="game-placeholder">
+            <p>Catch the falling spices!</p>
+            <span>Your basket will appear here</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="card">
+          <h2>How to Play</h2>
+          <ul>
+            <li>Move the basket left and right</li>
+            <li>Catch the falling spices</li>
+            <li>Avoid the burnt ingredients</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Goal</h2>
+          <p>Build the highest score before the timer runs out.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
 </body>
+</html>
