@@ -36,6 +36,12 @@ body {
   margin-bottom: 24px;
 }
 
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .eyebrow {
   margin: 0 0 4px;
   text-transform: uppercase;
@@ -70,6 +76,7 @@ h1 {
 .start-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(255, 95, 91, 0.4);
+   filter: brightness(0.75); 
 }
 
 .start-btn:active{

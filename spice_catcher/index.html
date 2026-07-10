@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+ 
 </head>
 <body>
   <main class="app">
@@ -15,13 +16,16 @@
         <p class="eyebrow">Mini Game</p>
         <h1>Spice Catcher</h1>
       </div>
-      <button class="start-btn" id="start-btn">Start Game</button>
+      <div class="action-group">
+        <button class="start-btn" id="start-btn">Start Game</button>
+        <button class="start-btn reset-btn" id="reset-btn" hidden>Play Again</button> <!--hide the reset button, same class as start btn-->
+      </div>
     </header>
 
     <section class="game-shell"> <!--score,live,time info-->
       <div class="game-panel">
         <div class="hud">
-          <div class="stat">
+          <div class="stat"> 
             <span class="label">Score</span>
             <strong id="score">0</strong>
           </div>
@@ -37,8 +41,8 @@
 
         <div class="game-area" id="game-area">
           <div class="game-placeholder">
-            <p>Catch the falling spices and ingredients!</p>
-            <span>Your basket will appear here</span>
+            <p id = "instruction-placeholder">Catch the falling spices and ingredients!</p>
+            <span id = "basket-placeholder">Your basket will appear here</span> <!--game area-->
           </div>
         </div>
       </div>
@@ -60,7 +64,7 @@
       </aside>
     </section>
   </main>
-
-  <script src="game.js"></script>
+ <script src="game.js"></script>
+  
 </body>
 </html>
