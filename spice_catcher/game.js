@@ -7,8 +7,22 @@ const livesDisplay = document.getElementById('lives');
 const instructionPlaceholder = document.getElementById('instruction-placeholder');
 const basketPlaceholder = document.getElementById('basket-placeholder');
 
+
+//const debugBtn = document.getElementById('debug-btn');
+
+// Option B: Press the '5' key on your keyboard to lose lives
+document.addEventListener('keydown', (event) => {
+    if (event.key === '5') {
+        lives = 0;
+        console.log("Debug: All lives lost!");
+    }
+});
+
+
 let timerInterval = null;
 let timeLeft = 60;
+let lives = 3;
+
 
 startBtn.addEventListener('click', () => {
   startBtn.hidden = true;
@@ -24,6 +38,7 @@ resetBtn.addEventListener('click', () => {
 function StartGame() {
   clearInterval(timerInterval);
   timeLeft = 60; 
+  lives = 3;
   scoreDisplay.textContent = '0';
   livesDisplay.textContent = '3';
   instructionPlaceholder.textContent = 'Catch the falling spices and ingredients!';
@@ -42,8 +57,17 @@ function StartGame() {
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
     }
-  }, 1000);
+    if (lives == 0){
+      clearInterval(timerInterval);
+      livesDisplay.textContent = '0';
+      instructionPlaceholder.textContent = 'You ran out of Lives! Click Play Again to Restart.';
+      resetBtn.hidden = false;
+      basketPlaceholder.style.display = 'none';
+    }
+  }, 700);
 }
+
+
 
 function Reset() {
   startBtn.hidden = true;
