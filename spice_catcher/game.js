@@ -8,6 +8,8 @@ const instructionPlaceholder = document.getElementById('instruction-placeholder'
 const basketPlaceholder = document.getElementById('basket-placeholder');
 
 
+
+
 //const debugBtn = document.getElementById('debug-btn');
 
 // Option B: Press the '5' key on your keyboard to lose lives
@@ -48,6 +50,7 @@ function StartGame() {
   basketPlaceholder.style.display = 'none';
   timerDisplay.textContent = `${timeLeft}s`;
 
+  startKadhai();
   timerInterval = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = `${timeLeft}s`;
@@ -61,6 +64,7 @@ function StartGame() {
       instructionPlaceholder.textContent = `${reason} Final Score: ${finalScore}. Click Play Again to Restart.`; //show score
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
+      stopKadhai();
     }
     if (lives == 0){
       clearInterval(timerInterval);
@@ -70,12 +74,93 @@ function StartGame() {
       instructionPlaceholder.textContent = `You ran out of Lives! Final Score: ${finalScore}. Click Play Again to Restart.`;
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
+      stopKadhai();
     }
   }, 700);
 }
 
 
 
+//kadhai/wok
+const kadhaie = document.getElementById('kadhai');
+const gameArea = document.getElementById('game-area');
+
+//kadhai variables
+let kadhaiX = 0;
+let kadhaiTargetX = 0;
+let keyleft = false;
+let keyright = false;
+const kadhaiSpeed = 900;
+let kadhaiLastTs = null;
+let kadhaiRunning = false;
+
+
+function initKadhai() { //init the wox position and such
+  const areaWidth = gameArea.clientWidth;
+  kadhaiX = areaWidth / 2;
+  kadhaiTargetX = areaWidth / 2;
+  kadhaie.style.left = kadhaiX + 'px';
+  kadhaie.hidden = false;
+}
+
+//mouse
+gameArea.addEventListener('mousemove', (event) => {
+  const rect = gameArea.getBoundingClientRect();
+  kadhaiTargetX = event.clientX - rect.left;
+});
+
+//touch
+gameArea.addEventListener('touchstart', handleTouch, { passive: false });
+gameArea.addEventListener('touchmove', handleTouch, { passive: false });
+
+
+function handleTouch(event) {
+  event.preventDefault();
+  const touch = event.touches[0];
+  if (!touch)
+     return;
+  const rect = gameArea.getBoundingClientRect();
+  kadhaiTargetX = touch.clientX - rect.left;
+}
+
+function kadhaiLoop(ts){ //main loop for kadhai movement
+  if (!kadhaiRunning) 
+    return;
+
+  if (kadhaiLastTs == null)
+    kadhaiLastTs = ts;
+
+  const dt = Math.min((ts-kadhaiLastTs)/1000,0.05);
+  kadhaiLastTs = ts;
+
+  const areaWidth = gameArea.clientWidth;
+  const halfWidth = kadhaie.offsetWidth/2;
+
+  if (keyleft)
+    kadhaiTargetX -= kadhaiSpeed * dt;
+  if (keyright)
+    kadhaiTargetX += kadhaiSpeed * dt;
+
+  kadhaiTargetX = Math.max(halfWidth, Math.min(areaWidth - halfWidth, kadhaiTargetX));
+
+  kadhaiX += (kadhaiTargetX - kadhaiX) * Math.min(1, dt * 12);
+  kadhaie.style.left = kadhaiX + 'px';
+
+  requestAnimationFrame(kadhaiLoop);
+}
+
+
+function startKadhai() { //start the movement loop
+  initKadhai();
+  kadhaiRunning = true;
+  kadhaiLastTs = null;
+  requestAnimationFrame(kadhaiLoop);
+}
+
+function stopKadhai() { //hide the kadhai and stop loop
+  kadhaiRunning = false;
+  kadhaie.hidden = true;
+}
 function Reset() {
   startBtn.hidden = true;
   resetBtn.hidden = true;
