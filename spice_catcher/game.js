@@ -22,7 +22,7 @@ document.addEventListener('keydown', (event) => {
 let timerInterval = null;
 let timeLeft = 60;
 let lives = 3;
-
+let score = 0;
 
 startBtn.addEventListener('click', () => {
   startBtn.hidden = true;
@@ -37,8 +37,10 @@ resetBtn.addEventListener('click', () => {
 
 function StartGame() {
   clearInterval(timerInterval);
+  
   timeLeft = 60; 
   lives = 3;
+  score = 0;
   scoreDisplay.textContent = '0';
   livesDisplay.textContent = '3';
   instructionPlaceholder.textContent = 'Catch the falling spices and ingredients!';
@@ -49,18 +51,23 @@ function StartGame() {
   timerInterval = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = `${timeLeft}s`;
-
+    scoreDisplay.textContent = `${score}`;
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       timerDisplay.textContent = '0s';
-      instructionPlaceholder.textContent = 'Time is up! Click Play Again to restart.';
+      let finalScore = scoreDisplay.textContent;
+      let reason = "Time is up!";
+
+      instructionPlaceholder.textContent = `${reason} Final Score: ${finalScore}. Click Play Again to Restart.`; //show score
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
     }
     if (lives == 0){
       clearInterval(timerInterval);
       livesDisplay.textContent = '0';
-      instructionPlaceholder.textContent = 'You ran out of Lives! Click Play Again to Restart.';
+      let finalScore = scoreDisplay.textContent;
+      
+      instructionPlaceholder.textContent = `You ran out of Lives! Final Score: ${finalScore}. Click Play Again to Restart.`;
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
     }
