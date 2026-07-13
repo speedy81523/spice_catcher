@@ -184,13 +184,14 @@ let spawnAccum = 0;
 const spawnInterval = 900;
 const hazardChance = 0.2;
 
+//67676767676767
 function SpawnItem(){
   const isHazard = Math.random() < hazardChance;
   const type = isHazard;
   if (isHazard) //if hazard then will spawn a bad item from the list (since only one bad item so its only one)
-    type = BAD_KEYS[Math.floor(Math.random() * BAD_KEYS.Length)]
+    type = BAD_KEYS[Math.floor(Math.random() * BAD_KEYS.length)]
   else
-    type = GOOD_KEYS[Math.floor(Math.random() * GOOD_KEYS.Length)];
+    type = GOOD_KEYS[Math.floor(Math.random() * GOOD_KEYS.length)];
   const def = ITEM_TYPES[type];
 
 
@@ -199,8 +200,8 @@ function SpawnItem(){
   el.textContent = def.emoji;
    
   const areaWidth = gameArea.clientWidth;
-  const x = 24 + Math.random() * (areaWidth - 48); // keep clear of edges
-  const y = -20; // start just above the visible area
+  const x = 24 + Math.random() * (areaWidth - 48); //keep clear of edges
+  const y = -20; //start just above the visible area
 
   el.style.left = x + 'px';
   el.style.top = y + 'px';
