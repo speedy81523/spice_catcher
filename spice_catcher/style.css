@@ -12,11 +12,23 @@
 
 * {
   box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,body{
+ height:100%
+  overscroll-behavior: none;   
+  touch-action: manipulation;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
   font-family: 'Poppins', sans-serif;
   color: var(--text);
   background: radial-gradient(circle at top, #3d2253 0%, var(--bg) 55%, #140b1d 100%);
@@ -26,6 +38,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
 
 .top-bar {
@@ -64,7 +77,10 @@ h1 {
   border: none;
   border-radius: 999px;
   padding: 12px 20px;
+  min-height: 48px;
+  min-width: 48px;
   font-weight: 700;
+  font-size: 1.1rem;
   background: linear-gradient(135deg, var(--accent), #ff5e5b);
   color: white;
   cursor: pointer;
@@ -73,11 +89,14 @@ h1 {
   
 }
 
-.start-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(255, 95, 91, 0.4);
-   filter: brightness(0.75); 
+@media (hover: hover) { 
+  .start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(255, 95, 91, 0.4);
+    filter: brightness(0.75); 
+  }
 }
+
 
 .start-btn:active{
   transform: translateY(2px);
@@ -240,5 +259,24 @@ h1 {
 
   #kadhai {
     width: 150px; /* slightly wider hitbox/visual on phones */
+  }
+}
+/*tablet*/
+@media (min-width: 600px) and (max-width: 1024px) {
+  .game-area {
+    min-height: 55vh;
+  }
+
+  #kadhai {
+    width: 170px;
+  }
+
+  .falling-item {
+    font-size: 40px;
+  }
+
+  .start-btn {
+    padding: 16px 28px;
+    font-size: 1.25rem;
   }
 }
