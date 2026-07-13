@@ -168,6 +168,16 @@ h1 {
   border-radius: 3px;
   box-shadow: 152px 0 0 0 #2b2b2b; 
 }
+
+.falling-item{
+  position: absolute;
+  font-size: 32px;
+  line-height: 1;
+  transform: translate(-50%, -50%); /*center the emoji*/
+  pointer-events: none;
+  user-select: none;
+  will-change: top;
+}
 .game-placeholder {
   text-align: center;
   color: var(--muted);

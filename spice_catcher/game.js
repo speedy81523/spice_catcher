@@ -161,6 +161,33 @@ function stopKadhai() { //hide the kadhai and stop loop
   kadhaiRunning = false;
   kadhaie.hidden = true;
 }
+//falling items
+const FALLING_ITEMS = { 
+  garlic: { emoji: '🧄', points: 10, kind: 'good' }, //sprite, points, good or bad
+  ginger: { emoji: '🫚', points: 10, kind: 'good' },
+  chili:  { emoji: '🌶️', points: 15, kind: 'good' },
+  rice:   { emoji: '🍚', points: 5,  kind: 'good' },
+  lemon:  { emoji: '🍋', points: 20, kind: 'good' },
+  roach:  { emoji: '🪳', points: 0,  kind: 'bad'  }
+}
+
+//falling items
+const GOOD_KEYS = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'good'); //filter good items
+const BAD_KEYS  = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'bad');//filter bad items
+
+const fallingSpeed = 160;
+let fallingItems = [];
+let itemsLastTs = null;
+let itemsRunning = false;
+let spawnAccum = 0;
+const spawnInterval = 900;
+const hazardChance = 0.2;
+
+function SpawnItem(){
+  
+}
+
+
 function Reset() {
   startBtn.hidden = true;
   resetBtn.hidden = true;
