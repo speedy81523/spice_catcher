@@ -51,6 +51,7 @@ function StartGame() {
   timerDisplay.textContent = `${timeLeft}s`;
 
   startKadhai();
+  startItems();
   timerInterval = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = `${timeLeft}s`;
@@ -65,6 +66,7 @@ function StartGame() {
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
       stopKadhai();
+      stopItems(); 
     }
     if (lives == 0){
       clearInterval(timerInterval);
@@ -75,6 +77,7 @@ function StartGame() {
       resetBtn.hidden = false;
       basketPlaceholder.style.display = 'none';
       stopKadhai();
+      stopItems(); 
     }
   }, 700);
 }
@@ -187,12 +190,12 @@ const hazardChance = 0.3;
 //67676767676767
 function spawnItem(){
   const isHazard = Math.random() < hazardChance;
-  const type = isHazard;
+  let type;
   if (isHazard) //if hazard then will spawn a bad item from the list (since only one bad item so its only one)
     type = BAD_KEYS[Math.floor(Math.random() * BAD_KEYS.length)]
   else
     type = GOOD_KEYS[Math.floor(Math.random() * GOOD_KEYS.length)];
-  const def = ITEM_TYPES[type];
+  const def = FALLING_ITEMS[type];
 
   
   const el = document.createElement('div'); //create the item element
@@ -219,7 +222,7 @@ function isColliding(a,b){ //check if two elements are colliding (AABB)
 }
 
 function catchItem(item){
-  const def = ITEM_TYPES[item.type]; //catch item
+  const def = FALLING_ITEMS[item.type]; //catch item
   if (def.kind === 'good') {
     score += def.points;
     scoreDisplay.textContent = score; //if good + points
@@ -228,6 +231,61 @@ function catchItem(item){
     lives--;
     livesDisplay.textContent = lives; //if bad -1 life
   }
+}
+
+function itemLoop(ts){ //looplooploop items
+   if (!itemsRunning)
+    return;
+
+
+  if (itemsLastTs === null) itemsLastTs = ts;
+  const dt = Math.min((ts - itemsLastTs) / 1000, 0.05);
+  itemsLastTs = ts;
+
+  spawnAccum += dt * 1000;
+  if (spawnAccum >= spawnInterval) {
+    spawnAccum = 0;
+    spawnItem();
+  }
+
+  //where it will fall from basically hehehe
+  const areaHeight = gameArea.clientHeight;
+
+  for (let i = fallingItems.length - 1; i >= 0; i--) {
+    const item = fallingItems[i];
+    item.y += fallingSpeed * dt;
+    item.el.style.top = item.y + 'px';
+
+    if (isColliding(item.el, kadhaie)) {
+      catchItem(item);
+      item.el.remove();
+      fallingItems.splice(i, 1);
+      continue;
+    }
+
+    if (item.y > areaHeight + 20) {
+      item.el.remove();
+      fallingItems.splice(i, 1);
+    }
+  }
+
+  requestAnimationFrame(itemLoop);
+}
+
+function startItems(){ //start the loop
+ fallingItems.forEach(item => item.el.remove());
+ fallingItems = [];
+ spawnAccum = 0;
+ itemsRunning = true;
+ itemsLastTs = null;
+ requestAnimationFrame(itemLoop);
+}
+
+function stopItems(){
+  itemsRunning = false;
+
+  fallingItems.forEach(item => item.el.remove());
+  fallingItems = [];
 }
 
 function Reset() {
