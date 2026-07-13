@@ -103,17 +103,17 @@ function initKadhai() { //init the wox position and such
   kadhaie.hidden = false;
 }
 
-//mouse
+//mouse event
 gameArea.addEventListener('mousemove', (event) => {
   const rect = gameArea.getBoundingClientRect();
   kadhaiTargetX = event.clientX - rect.left;
 });
 
-//touch
+//touch 
 gameArea.addEventListener('touchstart', handleTouch, { passive: false });
 gameArea.addEventListener('touchmove', handleTouch, { passive: false });
 
-
+//handle touch events
 function handleTouch(event) {
   event.preventDefault();
   const touch = event.touches[0];
@@ -130,7 +130,7 @@ function kadhaiLoop(ts){ //main loop for kadhai movement
   if (kadhaiLastTs == null)
     kadhaiLastTs = ts;
 
-  const dt = Math.min((ts-kadhaiLastTs)/1000,0.05);
+  const dt = Math.min((ts-kadhaiLastTs)/1000,0.05); 
   kadhaiLastTs = ts;
 
   const areaWidth = gameArea.clientWidth;
@@ -176,7 +176,7 @@ const FALLING_ITEMS = {
 const GOOD_KEYS = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'good'); //filter good items
 const BAD_KEYS  = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'bad');//filter bad items
 
-const fallingSpeed = 160;
+const fallingSpeed = 160; 
 let fallingItems = [];
 let itemsLastTs = null;
 let itemsRunning = false;
@@ -212,7 +212,7 @@ function spawnItem(){
 
 function isColliding(a,b){ //check if two elements are colliding (AABB)
 
-  const r1 = a.getBoundingClientRect();
+  const r1 = a.getBoundingClientRect(); //get bounding box of t he two elements
   const r2 = b.getBoundingClientRect();
 
   return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom); //return true if collision
