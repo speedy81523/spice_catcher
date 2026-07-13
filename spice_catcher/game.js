@@ -179,12 +179,12 @@ const FALLING_ITEMS = {
 const GOOD_KEYS = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'good'); //filter good items
 const BAD_KEYS  = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'bad');//filter bad items
 
-const fallingSpeed = 160; 
+const fallingSpeed = 350; 
 let fallingItems = [];
 let itemsLastTs = null;
 let itemsRunning = false;
 let spawnAccum = 0;
-const spawnInterval = 900;
+const spawnInterval = 700;
 const hazardChance = 0.3;
 
 //67676767676767
