@@ -161,6 +161,7 @@ function stopKadhai() { //hide the kadhai and stop loop
   kadhaiRunning = false;
   kadhaie.hidden = true;
 }
+
 //falling items
 const FALLING_ITEMS = { 
   garlic: { emoji: '🧄', points: 10, kind: 'good' }, //sprite, points, good or bad
@@ -175,7 +176,6 @@ const FALLING_ITEMS = {
 const GOOD_KEYS = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'good'); //filter good items
 const BAD_KEYS  = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'bad');//filter bad items
 
-
 const fallingSpeed = 160;
 let fallingItems = [];
 let itemsLastTs = null;
@@ -185,7 +185,7 @@ const spawnInterval = 900;
 const hazardChance = 0.3;
 
 //67676767676767
-function SpawnItem(){
+function spawnItem(){
   const isHazard = Math.random() < hazardChance;
   const type = isHazard;
   if (isHazard) //if hazard then will spawn a bad item from the list (since only one bad item so its only one)
@@ -194,7 +194,7 @@ function SpawnItem(){
     type = GOOD_KEYS[Math.floor(Math.random() * GOOD_KEYS.length)];
   const def = ITEM_TYPES[type];
 
-
+  
   const el = document.createElement('div'); //create the item element
   el.className = 'falling-item';
   el.textContent = def.emoji;
@@ -210,7 +210,7 @@ function SpawnItem(){
   fallingItems.push({type, el, x, y }) //push to item array
 }
 
-function isColliding(a,b){ //check if two elements are colliding
+function isColliding(a,b){ //check if two elements are colliding (AABB)
 
   const r1 = a.getBoundingClientRect();
   const r2 = b.getBoundingClientRect();
@@ -218,8 +218,8 @@ function isColliding(a,b){ //check if two elements are colliding
   return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom); //return true if collision
 }
 
-function CatchItem(item){
-   const def = ITEM_TYPES[item.type]; //catch item
+function catchItem(item){
+  const def = ITEM_TYPES[item.type]; //catch item
   if (def.kind === 'good') {
     score += def.points;
     scoreDisplay.textContent = score; //if good + points
@@ -229,6 +229,7 @@ function CatchItem(item){
     livesDisplay.textContent = lives; //if bad -1 life
   }
 }
+
 function Reset() {
   startBtn.hidden = true;
   resetBtn.hidden = true;
