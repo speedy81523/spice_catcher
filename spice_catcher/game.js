@@ -175,6 +175,7 @@ const FALLING_ITEMS = {
 const GOOD_KEYS = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'good'); //filter good items
 const BAD_KEYS  = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'bad');//filter bad items
 
+
 const fallingSpeed = 160;
 let fallingItems = [];
 let itemsLastTs = null;
@@ -184,9 +185,37 @@ const spawnInterval = 900;
 const hazardChance = 0.2;
 
 function SpawnItem(){
-  
+  const isHazard = Math.random() < hazardChance;
+  const type = isHazard;
+  if (isHazard) //if hazard then will spawn a bad item from the list (since only one bad item so its only one)
+    type = BAD_KEYS[Math.floor(Math.random() * BAD_KEYS.Length)]
+  else
+    type = GOOD_KEYS[Math.floor(Math.random() * GOOD_KEYS.Length)];
+  const def = ITEM_TYPES[type];
+
+
+  const el = document.createElement('div'); //create the item element
+  el.className = 'falling-item';
+  el.textContent = def.emoji;
+   
+  const areaWidth = gameArea.clientWidth;
+  const x = 24 + Math.random() * (areaWidth - 48); // keep clear of edges
+  const y = -20; // start just above the visible area
+
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  gameArea.appendChild(el); //append child item to game area
+
+  fallingItems.push({type, el, x, y }) //push to item array
 }
 
+function isColliding(a,b){ //check if two elements are colliding
+
+  const r1 = a.getBoundingClientRect();
+  const r2 = b.getBoundingClientRect();
+
+  return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom); //return true if collision
+}
 
 function Reset() {
   startBtn.hidden = true;
