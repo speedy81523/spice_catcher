@@ -242,8 +242,8 @@ function itemLoop(ts){ //looplooploop items
   const dt = Math.min((ts - itemsLastTs) / 1000, 0.05);
   itemsLastTs = ts;
 
-  spawnAccum += dt * 1000;
-  if (spawnAccum >= spawnInterval) {
+  spawnAccum += dt * 1000; 
+  if (spawnAccum >= spawnInterval) { //spawn item every interval 6767
     spawnAccum = 0;
     spawnItem();
   }
@@ -256,10 +256,10 @@ function itemLoop(ts){ //looplooploop items
     item.y += fallingSpeed * dt;
     item.el.style.top = item.y + 'px';
 
-    if (isColliding(item.el, kadhaie)) {
+    if (isColliding(item.el, kadhaie)) { //if collide with kadhai catch itemmmm
       catchItem(item);
       item.el.remove();
-      fallingItems.splice(i, 1);
+      fallingItems.splice(i, 1); //remove and return item to array
       continue;
     }
 
