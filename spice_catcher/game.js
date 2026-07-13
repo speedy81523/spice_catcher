@@ -168,7 +168,7 @@ const FALLING_ITEMS = {
   chili:  { emoji: '🌶️', points: 15, kind: 'good' },
   rice:   { emoji: '🍚', points: 5,  kind: 'good' },
   lemon:  { emoji: '🍋', points: 20, kind: 'good' },
-  roach:  { emoji: '🪳', points: 0,  kind: 'bad'  }
+  roach:  { emoji: '🪳', points: -5,  kind: 'bad'  }
 }
 
 //falling items
@@ -182,7 +182,7 @@ let itemsLastTs = null;
 let itemsRunning = false;
 let spawnAccum = 0;
 const spawnInterval = 900;
-const hazardChance = 0.2;
+const hazardChance = 0.3;
 
 //67676767676767
 function SpawnItem(){
@@ -218,6 +218,17 @@ function isColliding(a,b){ //check if two elements are colliding
   return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom); //return true if collision
 }
 
+function CatchItem(item){
+   const def = ITEM_TYPES[item.type]; //catch item
+  if (def.kind === 'good') {
+    score += def.points;
+    scoreDisplay.textContent = score; //if good + points
+  } 
+  else {
+    lives--;
+    livesDisplay.textContent = lives; //if bad -1 life
+  }
+}
 function Reset() {
   startBtn.hidden = true;
   resetBtn.hidden = true;
