@@ -281,7 +281,7 @@ function startItems(){ //start the loop
  requestAnimationFrame(itemLoop);
 }
 
-function stopItems(){
+function stopItems(){ //stop loop
   itemsRunning = false;
 
   fallingItems.forEach(item => item.el.remove());
