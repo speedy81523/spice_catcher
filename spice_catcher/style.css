@@ -256,6 +256,33 @@ h1 {
   line-height: 1.7;
 }
 
+/*speed banner */
+.speed-banner {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  color: var(--accent-2);
+  text-shadow: 0 0 12px rgba(255, 209, 102, 0.7), 0 0 24px rgba(255, 143, 63, 0.5);
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  animation: speedBlink 1.5s ease-in-out;
+}
+
+@keyframes speedBlink { /*animation for speed banner to scale and blink*/
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  30%  { opacity: 0.3; }
+  45%  { opacity: 1; }
+  60%  { opacity: 0.3; }
+  75%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
 @media (max-width: 860px) {
   .game-shell {
     grid-template-columns: 1fr;

@@ -43,6 +43,7 @@ function StartGame() {
   timeLeft = 60; 
   lives = 3;
   score = 0;
+  fallingSpeed = 350;
   scoreDisplay.textContent = '0';
   livesDisplay.textContent = '3';
   instructionPlaceholder.textContent = 'Catch the falling spices and ingredients!';
@@ -54,6 +55,11 @@ function StartGame() {
   startItems();
   timerInterval = setInterval(() => {
     timeLeft--;
+    if (timeLeft === 30) {
+      fallingSpeed += 125;
+
+      showSpeedBanner();
+    }
     timerDisplay.textContent = `${timeLeft}s`;
     scoreDisplay.textContent = `${score}`;
     if (timeLeft <= 0) {
@@ -179,7 +185,7 @@ const FALLING_ITEMS = {
 const GOOD_KEYS = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'good'); //filter good items
 const BAD_KEYS  = Object.keys(FALLING_ITEMS).filter(k => FALLING_ITEMS[k].kind === 'bad');//filter bad items
 
-const fallingSpeed = 350; 
+let fallingSpeed = 350; 
 let fallingItems = [];
 let itemsLastTs = null;
 let itemsRunning = false;
@@ -243,6 +249,7 @@ function itemLoop(ts){ //looplooploop items
   itemsLastTs = ts;
 
   spawnAccum += dt * 1000; 
+ 
   if (spawnAccum >= spawnInterval) { //spawn item every interval 6767
     spawnAccum = 0;
     spawnItem();
@@ -255,6 +262,8 @@ function itemLoop(ts){ //looplooploop items
     const item = fallingItems[i];
     item.y += fallingSpeed * dt;
     item.el.style.top = item.y + 'px';
+
+    
 
     if (isColliding(item.el, kadhaie)) { //if collide with kadhai catch itemmmm
       catchItem(item);
@@ -288,6 +297,22 @@ function stopItems(){ //stop loop
   fallingItems = [];
 }
 
+
+function showSpeedBanner(){
+  const banner = document.getElementById('speed-banner');
+  banner.hidden = false;
+  //reshow animation if needed
+  //reset the animation if therre a chance it is running alrdy (if speed increases multiple times)
+  //for now no need but if I add more speed increases in the future this will be needed
+  banner.style.animation = 'none';
+  banner.offsetHeight;
+  banner.style.animation = 'speedBlink 1.5s ease-in-out';
+
+  
+  setTimeout(() => {
+    banner.hidden = true;
+  }, 2000);
+}
 function Reset() {
   startBtn.hidden = true;
   resetBtn.hidden = true;
