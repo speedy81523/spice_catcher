@@ -158,9 +158,10 @@ h1 {
 }
 
 #kadhai{
+  --kadhai-w: 135px;
   position: absolute;
   bottom: 14px;
-  width:135px;
+  width: var(--kadhai-w);
   height:38px;
   transform: translateX(-50%);
   pointer-events: none;
@@ -185,7 +186,7 @@ h1 {
   height: 7px;
   background: #2b2b2b;
   border-radius: 3px;
-  box-shadow: 152px 0 0 0 #2b2b2b; 
+  box-shadow: calc(var(--kadhai-w) + 16px) 0 0 #2b2b2b; 
 }
 
 .falling-item{
@@ -258,7 +259,7 @@ h1 {
   }
 
   #kadhai {
-    width: 150px; /* slightly wider hitbox/visual on phones */
+   --kadhai-w: 150px; /* slightly wider hitbox/visual on phones */
   }
 }
 /*tablet*/
@@ -268,7 +269,7 @@ h1 {
   }
 
   #kadhai {
-    width: 170px;
+    --kadhai-w: 170px;
   }
 
   .falling-item {
