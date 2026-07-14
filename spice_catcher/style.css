@@ -177,7 +177,7 @@ h1 {
   border: 3px solid #000;
 }
 
-#kadhai::after {
+/*#kadhai::after {
   content: "";
   position: absolute;
   top: 10px;
@@ -186,7 +186,25 @@ h1 {
   height: 7px;
   background: #2b2b2b;
   border-radius: 3px;
-  box-shadow: calc(var(--kadhai-w) + 16px) 0 0 #2b2b2b; 
+  box-shadow: calc(var(--kadhai-w) + 16px) 0 0 0 #2b2b2b; 
+}*/
+
+.kadhai-handle {
+  position: absolute;
+  top: 10px;
+  width: 16px;
+  height: 7px;
+  background: #2b2b2b;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.kadhai-handle-left {
+  left: -16px;
+}
+
+.kadhai-handle-right {
+  right: -16px;
 }
 
 .falling-item{
