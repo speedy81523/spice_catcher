@@ -13,12 +13,12 @@ const basketPlaceholder = document.getElementById('basket-placeholder');
 //const debugBtn = document.getElementById('debug-btn');
 
 // Option B: Press the '5' key on your keyboard to lose lives
-document.addEventListener('keydown', (event) => {
-    if (event.key === '5') {
-        lives = 0;
-        console.log("Debug: All lives lost!");
-    }
-});
+//document.addEventListener('keydown', (event) => {
+   // if (event.key === '5') {
+    //    lives = 0;
+   //     console.log("Debug: All lives lost!");
+    //}
+//});
 
 
 let timerInterval = null;
